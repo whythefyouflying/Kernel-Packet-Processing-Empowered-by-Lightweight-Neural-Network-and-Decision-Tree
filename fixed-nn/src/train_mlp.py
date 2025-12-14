@@ -157,7 +157,7 @@ def get_dataset(data, is_binary=True):
             # current_deviation = (deviation/(i+1))
 
             # current_deviation = (deviation/(i+1)).astype(np.int64)
-            sumsq += np.square(sum)
+            sumsq += np.square(current_vector[3:])
             current_variance = (sumsq/(i+1)) - (np.square(current_average))
 
             # final_vector = np.concatenate((current_vector, current_average))
