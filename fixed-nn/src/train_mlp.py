@@ -142,23 +142,23 @@ def get_dataset(data, is_binary=True):
 
         # average = np.zeros(3, dtype=np.int64)
         # deviation = np.zeros(3, dtype=np.int64)
-        sum = np.zeros(3)
+        running_sum = np.zeros(3)
         # deviation = np.zeros(3)
-        sumsq = np.zeros(3)
+        running_sumsq = np.zeros(3)
         for i in range(item.shape[0]):
             # item[i,:6]: sport, dport, protocol, tot_len, interval, direction
             current_vector = item[i,:6]
 
-            sum += current_vector[3:]
+            running_sum += current_vector[3:]
             # current_average = (average/(i+1)).astype(np.int64)
-            current_average = (sum/(i+1))
+            current_average = (running_sum/(i+1))
 
             # deviation += np.abs(current_vector[3:]-current_average)
             # current_deviation = (deviation/(i+1))
 
             # current_deviation = (deviation/(i+1)).astype(np.int64)
-            sumsq += np.square(current_vector[3:])
-            current_variance = (sumsq/(i+1)) - (np.square(current_average))
+            running_sumsq += np.square(current_vector[3:])
+            current_variance = (running_sumsq/(i+1)) - (np.square(current_average))
 
             # final_vector = np.concatenate((current_vector, current_average))
             final_vector = np.concatenate((current_vector, current_average, current_variance))
