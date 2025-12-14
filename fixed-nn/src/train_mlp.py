@@ -160,8 +160,16 @@ def get_dataset(data, is_binary=True):
             running_sumsq += np.square(current_vector[3:])
             current_variance = (running_sumsq/(i+1)) - (np.square(current_average))
 
+
+            coefficient_of_variation = np.divide(
+                current_variance,
+                (running_sumsq/(i+1)),
+                out=np.zeros_like(current_average),
+                where=current_average!=0
+            )
+
             # final_vector = np.concatenate((current_vector, current_average))
-            final_vector = np.concatenate((current_vector, current_average, current_variance))
+            final_vector = np.concatenate((current_vector, current_average, coefficient_of_variation))
         new_dataset.append(final_vector)
         # new_dataset2.append(deepcopy(final_vector))
 
