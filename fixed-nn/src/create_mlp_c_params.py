@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    saved_stats = torch.load(os.path.join(args.save_dir, args.filename))
+    saved_stats = torch.load(os.path.join(args.save_dir, args.filename), weights_only=False)
     state_dict = saved_stats['state_dict']
     hidden_sizes = saved_stats['hidden_sizes']
 
